@@ -1,0 +1,34 @@
+---
+import { Font } from "astro:assets";
+import GlobalStyle from "./GlobalStyle.astro";
+import { Header } from "./Header";
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <Font cssVariable="--font-pretendard" />
+        <Font cssVariable="--font-material-icons" />
+        <title>Astro</title>
+    </head>
+    <body>
+        <GlobalStyle />
+        <Header client:load />
+        <div id="content">
+            <slot />
+        </div>
+    </body>
+</html>
+
+<style>
+    * {
+        font-family: var(--font-pretendard);
+    }
+    #content {
+        padding-top: 66px;
+    }
+</style>
