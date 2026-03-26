@@ -1,18 +1,13 @@
 ---
-import Test from "../components/Test.astro";
+import Layout from "../components/Layout.astro";
 ---
 
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="icon" href="/favicon.ico" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <title>Astro</title>
-    </head>
-    <body>
-        <h1>ddd</h1>
-        <Test />
-    </body>
-</html>
+<Layout>
+    <div>내용</div>
+</Layout>
+
+<style>
+    div {
+        height: 3000px;
+    }
+</style>
