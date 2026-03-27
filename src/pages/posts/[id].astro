@@ -1,0 +1,21 @@
+---
+import { getCollection, render } from "astro:content";
+import { Footer } from "../../components/Footer";
+import Layout from "../../components/Layout.astro";
+
+export async function getStaticPaths() {
+    const posts = await getCollection("blog");
+    return posts.map((post) => ({
+        params: { id: post.id },
+        props: { post },
+    }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Layout>
+    아니뭐임?
+    <Content />
+</Layout>
