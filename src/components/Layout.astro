@@ -1,10 +1,11 @@
 ---
 import { Font } from "astro:assets";
+import { Footer } from "./Footer";
 import GlobalStyle from "./GlobalStyle.astro";
 import { Header } from "./Header";
 ---
 
-<html lang="en">
+<html lang="ko">
     <head>
         <meta charset="utf-8" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
@@ -18,9 +19,12 @@ import { Header } from "./Header";
     <body>
         <GlobalStyle />
         <Header client:load />
-        <div id="content">
-            <slot />
-        </div>
+        <main>
+            <div id="content">
+                <slot />
+            </div>
+            <Footer />
+        </main>
     </body>
 </html>
 
@@ -28,7 +32,13 @@ import { Header } from "./Header";
     * {
         font-family: var(--font-pretendard);
     }
+    main {
+        display: flex;
+        flex-direction: column;
+        min-height: 100dvh;
+    }
     #content {
+        flex-grow: 1;
         padding-top: 66px;
     }
 </style>
