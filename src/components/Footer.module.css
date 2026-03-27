@@ -1,0 +1,28 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    background-color: #f1f5f9;
+    color: #64748b;
+    position: relative;
+}
+
+.content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1000px;
+    padding: 80px 32px;
+}
+
+.list {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    list-style: none;
+
+    a {
+        color: inherit;
+    }
+}

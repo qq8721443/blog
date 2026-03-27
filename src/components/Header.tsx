@@ -1,25 +1,9 @@
-import { useCallback, useEffect, useState } from "react";
 import logo from "../assets/images/blog-logo.svg";
+import { useTop } from "../hooks/useTop";
 import styles from "./Header.module.css";
 
 export function Header() {
-  const [isTop, setIsTop] = useState(true);
-
-  const handleScroll = useCallback(() => {
-    if (window.scrollY !== 0) {
-      setIsTop(false);
-    } else {
-      setIsTop(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll, { passive: true });
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [handleScroll]);
+  const isTop = useTop();
 
   return (
     <div
