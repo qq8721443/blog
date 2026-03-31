@@ -3,9 +3,47 @@
 ---
 
 <style is:global>
+    :root {
+        --color-bg: #ffffff;
+        --color-surface: #f3f0ff;
+        --color-surface-muted: #e7e5ec;
+        --color-border: #ece9f1;
+        --color-text-strong: #2b3437;
+        --color-text-body: #0f172a;
+        --color-text-description: #586064;
+        --color-text-muted: #a4adb6;
+        --color-accent: #4355b9;
+        --color-footer-bg: #eef4ff;
+        --font-display: "Pretendard", "Times New Roman", serif;
+        --page-max-width: 1000px;
+        --radius-pill: 999px;
+        --radius-button: 999px;
+        --space-page-x: 32px;
+        --space-section-y: 56px;
+    }
+
     * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
+    }
+
+    html {
+        background: var(--color-bg);
+        color: var(--color-text-body);
+    }
+
+    body {
+        background: var(--color-bg);
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    button,
+    input {
+        font: inherit;
     }
 </style>
