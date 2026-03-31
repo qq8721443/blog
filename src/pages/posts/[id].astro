@@ -1,6 +1,5 @@
 ---
 import { getCollection, render } from "astro:content";
-import { Footer } from "../../components/Footer";
 import Layout from "../../components/Layout.astro";
 
 export async function getStaticPaths() {
@@ -16,6 +15,5 @@ const { Content } = await render(post);
 ---
 
 <Layout>
-    아니뭐임?
     <Content />
 </Layout>
