@@ -1,0 +1,148 @@
+---
+const config = {
+  repo: import.meta.env.PUBLIC_GISCUS_REPO,
+  repoId: import.meta.env.PUBLIC_GISCUS_REPO_ID,
+  category: import.meta.env.PUBLIC_GISCUS_CATEGORY,
+  categoryId: import.meta.env.PUBLIC_GISCUS_CATEGORY_ID,
+  mapping: import.meta.env.PUBLIC_GISCUS_MAPPING ?? "pathname",
+  strict: import.meta.env.PUBLIC_GISCUS_STRICT ?? "0",
+  reactionsEnabled: import.meta.env.PUBLIC_GISCUS_REACTIONS_ENABLED ?? "1",
+  emitMetadata: import.meta.env.PUBLIC_GISCUS_EMIT_METADATA ?? "0",
+  inputPosition: import.meta.env.PUBLIC_GISCUS_INPUT_POSITION ?? "bottom",
+  lang: import.meta.env.PUBLIC_GISCUS_LANG ?? "ko",
+  lightTheme: import.meta.env.PUBLIC_GISCUS_THEME_LIGHT ?? "light",
+  darkTheme: import.meta.env.PUBLIC_GISCUS_THEME_DARK ?? "dark_dimmed",
+};
+
+const isConfigured = Boolean(
+  config.repo && config.repoId && config.category && config.categoryId,
+);
+---
+
+{
+  isConfigured ? (
+    <div
+      class="giscusMount"
+      data-giscus-config={JSON.stringify(config)}
+      aria-live="polite"
+    />
+  ) : (
+    <div class="giscusFallback">
+      <p>Comments will appear here after giscus is configured.</p>
+    </div>
+  )
+}
+
+{
+  isConfigured && (
+    <script is:inline>
+      const mount =
+        document.currentScript?.previousElementSibling instanceof HTMLElement
+          ? document.currentScript.previousElementSibling
+          : null;
+
+      const rawConfig = mount?.dataset.giscusConfig;
+
+      if (mount && rawConfig) {
+        const config = JSON.parse(rawConfig);
+        let currentTheme = "";
+
+        const getTheme = () => {
+          const explicitTheme = document.documentElement.dataset.theme;
+
+          if (explicitTheme === "light") {
+            return config.lightTheme;
+          }
+
+          if (explicitTheme === "dark") {
+            return config.darkTheme;
+          }
+
+          return window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? config.darkTheme
+            : config.lightTheme;
+        };
+
+        const injectGiscus = () => {
+          currentTheme = getTheme();
+          mount.innerHTML = "";
+
+          const script = document.createElement("script");
+          script.src = "https://giscus.app/client.js";
+          script.async = true;
+          script.crossOrigin = "anonymous";
+          script.setAttribute("data-repo", config.repo);
+          script.setAttribute("data-repo-id", config.repoId);
+          script.setAttribute("data-category", config.category);
+          script.setAttribute("data-category-id", config.categoryId);
+          script.setAttribute("data-mapping", config.mapping);
+          script.setAttribute("data-strict", config.strict);
+          script.setAttribute(
+            "data-reactions-enabled",
+            config.reactionsEnabled,
+          );
+          script.setAttribute("data-emit-metadata", config.emitMetadata);
+          script.setAttribute("data-input-position", config.inputPosition);
+          script.setAttribute("data-theme", currentTheme);
+          script.setAttribute("data-lang", config.lang);
+          mount.append(script);
+        };
+
+        const syncTheme = () => {
+          const nextTheme = getTheme();
+
+          if (nextTheme === currentTheme) {
+            return;
+          }
+
+          currentTheme = nextTheme;
+
+          const frame = mount.querySelector("iframe.giscus-frame");
+
+          if (!frame?.contentWindow) {
+            injectGiscus();
+            return;
+          }
+
+          frame.contentWindow.postMessage(
+            {
+              giscus: {
+                setConfig: {
+                  theme: nextTheme,
+                },
+              },
+            },
+            "https://giscus.app",
+          );
+        };
+
+        injectGiscus();
+
+        const observer = new MutationObserver(syncTheme);
+        observer.observe(document.documentElement, {
+          attributes: true,
+          attributeFilter: ["data-theme"],
+        });
+
+        const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+        mediaQuery.addEventListener("change", syncTheme);
+      }
+    </script>
+  )
+}
+
+<style>
+  .giscusMount {
+    min-height: 320px;
+  }
+
+  .giscusFallback {
+    padding: 24px;
+    border: 1px solid var(--color-border-default);
+    border-radius: var(--radius-xs);
+    background: var(--color-bg-default);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-ui-sm);
+    line-height: 1.7;
+  }
+</style>

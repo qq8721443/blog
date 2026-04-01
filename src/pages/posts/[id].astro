@@ -1,5 +1,6 @@
 ---
 import { getCollection, render } from "astro:content";
+import GiscusComments from "../../components/GiscusComments.astro";
 import Layout from "../../components/Layout.astro";
 import { getReadMinutes } from "../../utils/getReadMinutes";
 import styles from "./post.module.css";
@@ -56,53 +57,7 @@ const formatDate = (date: Date) =>
 
         <section id="comments" class={styles.comments}>
           <h2 class={styles.commentsTitle}>Comments</h2>
-
-          <div class={styles.commentBox}>
-            <div class={styles.commentTabs}>
-              <strong>Write</strong>
-              <span>Preview</span>
-            </div>
-
-            <div class={styles.commentInput}>Leave a comment</div>
-
-            <div class={styles.commentActions}>
-              <button type="button" class={styles.commentButton}>
-                Comment
-              </button>
-            </div>
-          </div>
-
-          <div class={styles.commentList}>
-            <article class={styles.comment}>
-              <div class={styles.commentAvatar}>JD</div>
-              <div class={styles.commentBody}>
-                <div class={styles.commentHeader}>
-                  <span>johndoe commented 2 days ago</span>
-                  <span>···</span>
-                </div>
-                <p class={styles.commentText}>
-                  This perspective on whitespace as a buffer zone is
-                  fascinating. We often talk about UX in terms of speed, but
-                  rarely in terms of psychological calm.
-                </p>
-              </div>
-            </article>
-
-            <article class={styles.comment}>
-              <div class={styles.commentAvatar}>AS</div>
-              <div class={styles.commentBody}>
-                <div class={styles.commentHeader}>
-                  <span>architect_sarah commented 5 hours ago</span>
-                  <span>···</span>
-                </div>
-                <p class={styles.commentText}>
-                  Exactly what I needed to read today. The no-line rule
-                  mentioned in the design philosophy is a game changer for UI
-                  depth.
-                </p>
-              </div>
-            </article>
-          </div>
+          <GiscusComments />
         </section>
       </div>
     </article>
