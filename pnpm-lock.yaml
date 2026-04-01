@@ -29,6 +29,9 @@ importers:
       astro:
         specifier: ^6.0.8
         version: 6.0.8(@types/node@24.12.0)(rollup@4.60.0)(typescript@6.0.2)(yaml@2.8.3)
+      es-hangul:
+        specifier: ^2.3.8
+        version: 2.3.8
       react:
         specifier: ^19.2.4
         version: 19.2.4
@@ -1122,6 +1125,9 @@ packages:
   entities@6.0.1:
     resolution: {integrity: sha512-aN97NXWF6AWBTahfVOIrB/NShkzi5H7F9r1s9mD3cDj4Ko5f2qhhVoYMibXF7GlLveb/D2ioWay8lxI97Ven3g==}
     engines: {node: '>=0.12'}
+
+  es-hangul@2.3.8:
+    resolution: {integrity: sha512-VrJuqYBC7W04aKYjCnswomuJNXQRc0q33SG1IltVrRofi2YEE6FwVDPlsEJIdKbHwsOpbBL/mk9sUaBxVpbd+w==}
 
   es-module-lexer@2.0.0:
     resolution: {integrity: sha512-5POEcUuZybH7IdmGsD8wlf0AI55wMecM9rVBTI/qEAy2c1kTOm3DjFYjrBdI2K3BaJjJYfYFeRtM0t9ssnRuxw==}
@@ -3279,6 +3285,8 @@ snapshots:
   entities@4.5.0: {}
 
   entities@6.0.1: {}
+
+  es-hangul@2.3.8: {}
 
   es-module-lexer@2.0.0: {}
 

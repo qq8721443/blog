@@ -1,72 +1,21 @@
 ---
 import { getCollection } from "astro:content";
 import Layout from "../components/Layout.astro";
-import styles from "./index.module.css";
+import { PostList } from "../components/PostList";
 
 const posts = (await getCollection("blog")).sort(
   (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
 );
 
-const tags = Array.from(new Set(posts.flatMap((post) => post.data.tags)));
-
-const formatDate = (date: Date) =>
-  new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "2-digit",
-    year: "numeric",
-  })
-    .format(date)
-    .toUpperCase();
+const postListItems = posts.map((post) => ({
+  id: post.id,
+  title: post.data.title,
+  description: post.data.description,
+  pubDate: post.data.pubDate.toISOString(),
+  tags: post.data.tags,
+}));
 ---
 
 <Layout title="jeongki.dev" description="기술 블로그" ogImage="/og-image.png">
-  <section class={styles.page}>
-    <div class={styles.searchSection}>
-      <div class={styles.searchBar}>
-        <span class={styles.searchIcon}>search</span>
-        <span>Search the archives...</span>
-      </div>
-
-      <div class={styles.filterLabel}>필터</div>
-
-      <div class={styles.chips}>
-        <span class={`${styles.chip} ${styles.chipActive}`}>All</span>
-        {tags.map((tag) => (
-            <span class={styles.chip}>
-                {tag}
-            </span>
-        ))}
-      </div>
-    </div>
-
-    <div class={styles.list}>
-      {posts.map((post) => (
-                    <article class={styles.item}>
-                        <div class={styles.date}>
-                            {formatDate(post.data.pubDate)}
-                        </div>
-
-                        <div class={styles.body}>
-                            <a href={`/posts/${post.id}`} class={styles.title}>
-                                {post.data.title}
-                            </a>
-
-                            <p class={styles.description}>
-                                {post.data.description}
-                            </p>
-
-                            <a href={`/posts/${post.id}`} class={styles.link}>
-                                Read article
-                            </a>
-                        </div>
-                    </article>
-                ))}
-    </div>
-
-    <div class={styles.archiveAction}>
-      <button type="button" class={styles.archiveButton}>
-        View full archive
-      </button>
-    </div>
-  </section>
+  <PostList client:load posts={postListItems} />
 </Layout>

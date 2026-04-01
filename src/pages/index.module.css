@@ -14,14 +14,35 @@
   display: flex;
   align-items: center;
   gap: 16px;
+  width: min(100%, 320px);
   min-height: 64px;
   padding: 0 4px;
+  border: none;
+  background: transparent;
   color: var(--color-text-subtle);
   font-size: var(--font-size-body-md);
   line-height: 1.6;
 }
 
+.searchInput {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: var(--color-text-body);
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.searchInput::placeholder {
+  color: var(--color-text-subtle);
+}
+
+.searchInput:focus {
+  outline: none;
+}
+
 .searchIcon {
+  flex-shrink: 0;
   color: var(--color-text-body);
   font-family: var(--font-family-icon);
   font-size: var(--font-size-quote);
@@ -56,17 +77,71 @@
   justify-content: center;
   min-height: 36px;
   padding: 0 26px;
+  border: none;
   border-radius: var(--radius-pill);
   background: var(--color-surface-muted);
   color: var(--color-text-secondary);
   font-size: var(--font-size-ui-md);
   font-weight: var(--font-weight-medium);
   line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease-out,
+    color 0.2s ease-out;
 }
 
 .chipActive {
   background: var(--color-accent-primary);
   color: var(--color-accent-on-primary);
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  min-height: 320px;
+  padding: 36px 0 12px;
+  text-align: center;
+}
+
+.emptyEyebrow {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-ui-sm);
+  letter-spacing: 0.18em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.emptyTitle {
+  max-width: 640px;
+  color: var(--color-text-strong);
+  font-size: clamp(30px, 4vw, 42px);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+}
+
+.emptyDescription {
+  max-width: 620px;
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-body-lg);
+  line-height: 1.7;
+}
+
+.emptyAction {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--color-border-default);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg-default);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-ui-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
 }
 
 .list {
@@ -174,6 +249,10 @@
     margin-bottom: 52px;
   }
 
+  .searchBar {
+    min-height: 56px;
+  }
+
   .list {
     gap: 64px;
   }
@@ -192,6 +271,14 @@
   }
 
   .description {
+    font-size: var(--font-size-body-md);
+  }
+
+  .emptyTitle {
+    font-size: 34px;
+  }
+
+  .emptyDescription {
     font-size: var(--font-size-body-md);
   }
 }
