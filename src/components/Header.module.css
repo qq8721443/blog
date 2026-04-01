@@ -4,7 +4,7 @@
   align-items: center;
   width: 100vw;
   height: 66px;
-  background-color: #fff;
+  background-color: var(--color-bg-default);
   position: fixed;
   top: 0;
   left: 0;
@@ -16,9 +16,9 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 1000px;
+  max-width: var(--layout-page-max-width);
   height: 100%;
-  padding: 0 32px;
+  padding: 0 var(--space-page-x);
 }
 
 .logo {
@@ -33,21 +33,42 @@
 
   span {
     font-size: 24px;
-    font-weight: bold;
+    font-weight: var(--font-weight-bold);
     letter-spacing: -1.2px;
     line-height: 32px;
   }
 
   span:nth-child(2) {
-    color: #4355b9;
+    color: var(--color-accent-primary);
   }
 }
 
-.search {
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.iconButton {
   padding: 8px;
   border: none;
   background-color: transparent;
-  font-family: var(--font-material-icons);
+  border-radius: var(--radius-pill);
+  color: var(--color-text-body);
+  font-family: var(--font-family-icon);
   font-size: 24px;
+  line-height: 1;
   cursor: pointer;
+  transition:
+    background-color 0.2s ease-out,
+    color 0.2s ease-out;
+}
+
+.iconButton:hover {
+  background-color: var(--color-surface-soft);
+}
+
+.iconButton:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 2px;
 }

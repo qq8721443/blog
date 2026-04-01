@@ -3,22 +3,55 @@
 
 <style is:global>
 :root {
-  --color-bg: #ffffff;
-  --color-surface: #f3f0ff;
+  --color-bg-default: #ffffff;
+  --color-bg-subtle: #eef4ff;
   --color-surface-muted: #e7e5ec;
-  --color-border: #ece9f1;
+  --color-surface-soft: #f1eef4;
+  --color-border-default: #ece9f1;
+  --color-border-subtle: rgba(15, 23, 42, 0.08);
   --color-text-strong: #2b3437;
-  --color-text-body: #0f172a;
-  --color-text-description: #586064;
-  --color-text-muted: #a4adb6;
-  --color-accent: #4355b9;
-  --color-footer-bg: #eef4ff;
-  --font-display: "Pretendard", "Times New Roman", serif;
-  --page-max-width: 1000px;
+  --color-text-body: #313941;
+  --color-text-secondary: #586064;
+  --color-text-muted: #7f8891;
+  --color-text-subtle: #a4adb6;
+  --color-accent-primary: #4355b9;
+  --color-accent-on-primary: #ffffff;
+  --color-code-inline-bg: rgba(67, 85, 185, 0.08);
+  --color-code-block-bg: #edf2f6;
+  --color-code-block-text: #46505a;
+  --color-comment-toolbar-bg: #f4f7fb;
+  --color-comment-toolbar-text: #6f7882;
+  --color-comment-placeholder: #8e96a0;
+  --color-comment-avatar-bg: #dbe3ff;
+  --color-comment-header-bg: #f8fafc;
+  --color-comment-header-text: #7b8590;
+  --color-comment-text: #46505a;
+  --shadow-header-sticky: 0 1px 1px var(--color-border-subtle);
+  --font-family-body:
+    var(--font-pretendard), -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --font-family-icon: var(--font-material-icons);
+  --font-size-display-lg: 52px;
+  --font-size-display-md: 48px;
+  --font-size-heading-lg: 34px;
+  --font-size-heading-md: 32px;
+  --font-size-quote: 28px;
+  --font-size-body-lg: 17px;
+  --font-size-body-md: 16px;
+  --font-size-ui-md: 15px;
+  --font-size-ui-sm: 14px;
+  --font-size-meta: 13px;
+  --font-size-caption: 11px;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
   --radius-pill: 999px;
-  --radius-button: 999px;
+  --radius-sm: 4px;
+  --radius-xs: 2px;
   --space-page-x: 32px;
   --space-section-y: 56px;
+  --layout-page-max-width: 1000px;
+  color-scheme: light;
 }
 
 * {
@@ -28,12 +61,15 @@
 }
 
 html {
-  background: var(--color-bg);
+  background: var(--color-bg-default);
   color: var(--color-text-body);
 }
 
 body {
-  background: var(--color-bg);
+  background: var(--color-bg-default);
+  color: var(--color-text-body);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-body-md);
 }
 
 a {
@@ -44,5 +80,63 @@ a {
 button,
 input {
   font: inherit;
+}
+
+:root[data-theme="dark"] {
+  --color-bg-default: #0f1318;
+  --color-bg-subtle: #141b24;
+  --color-surface-muted: #262c36;
+  --color-surface-soft: #1c2430;
+  --color-border-default: #2a3441;
+  --color-border-subtle: rgba(219, 227, 234, 0.12);
+  --color-text-strong: #f3f6fb;
+  --color-text-body: #dbe3ea;
+  --color-text-secondary: #aeb8c3;
+  --color-text-muted: #8c96a3;
+  --color-text-subtle: #6f7884;
+  --color-accent-primary: #7a8cff;
+  --color-accent-on-primary: #0f1318;
+  --color-code-inline-bg: rgba(122, 140, 255, 0.16);
+  --color-code-block-bg: #161d27;
+  --color-code-block-text: #cbd5df;
+  --color-comment-toolbar-bg: #141b24;
+  --color-comment-toolbar-text: #94a0ad;
+  --color-comment-placeholder: #7f8a96;
+  --color-comment-avatar-bg: #223153;
+  --color-comment-header-bg: #18212b;
+  --color-comment-header-text: #94a0ad;
+  --color-comment-text: #c2ccd7;
+  --shadow-header-sticky: 0 1px 1px var(--color-border-subtle);
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --color-bg-default: #0f1318;
+    --color-bg-subtle: #141b24;
+    --color-surface-muted: #262c36;
+    --color-surface-soft: #1c2430;
+    --color-border-default: #2a3441;
+    --color-border-subtle: rgba(219, 227, 234, 0.12);
+    --color-text-strong: #f3f6fb;
+    --color-text-body: #dbe3ea;
+    --color-text-secondary: #aeb8c3;
+    --color-text-muted: #8c96a3;
+    --color-text-subtle: #6f7884;
+    --color-accent-primary: #7a8cff;
+    --color-accent-on-primary: #0f1318;
+    --color-code-inline-bg: rgba(122, 140, 255, 0.16);
+    --color-code-block-bg: #161d27;
+    --color-code-block-text: #cbd5df;
+    --color-comment-toolbar-bg: #141b24;
+    --color-comment-toolbar-text: #94a0ad;
+    --color-comment-placeholder: #7f8a96;
+    --color-comment-avatar-bg: #223153;
+    --color-comment-header-bg: #18212b;
+    --color-comment-header-text: #94a0ad;
+    --color-comment-text: #c2ccd7;
+    --shadow-header-sticky: 0 1px 1px var(--color-border-subtle);
+    color-scheme: dark;
+  }
 }
 </style>
