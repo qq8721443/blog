@@ -6,4 +6,4 @@
 
 ## Validation Rules
 
-- Run the `build` script after every code change.
+- Run `pnpm check:fix` and `pnpm build` after every code change.

@@ -23,8 +23,24 @@
     "formatter": {
       "quoteStyle": "double",
       "jsxQuoteStyle": "double",
-      "trailingCommas": "all"
+      "trailingCommas": "all",
+      "indentStyle": "space",
+      "indentWidth": 2
     }
+  },
+  "json": {
+    "formatter": {
+      "trailingCommas": "none"
+    }
+  },
+  "css": {
+    "formatter": {
+      "indentStyle": "space",
+      "indentWidth": 2
+    }
+  },
+  "html": {
+    "experimentalFullSupportEnabled": false
   },
   "assist": {
     "enabled": true,
@@ -48,6 +64,10 @@
             "noUnusedImports": "off"
           }
         }
+      },
+      "formatter": {
+        "indentStyle": "space",
+        "indentWidth": 2
       }
     }
   ]
