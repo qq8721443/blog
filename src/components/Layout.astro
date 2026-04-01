@@ -6,42 +6,40 @@ import { Header } from "./Header";
 ---
 
 <html lang="ko">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <link rel="icon" href="/favicon.ico" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <Font cssVariable="--font-pretendard" />
-        <Font cssVariable="--font-material-icons" />
-        <title>Astro</title>
-    </head>
-    <body>
-        <GlobalStyle />
-        <Header client:load />
-        <main>
-            <div id="content">
-                <slot />
-            </div>
-            <Footer />
-        </main>
-    </body>
+  <head>
+    <meta charset="utf-8">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="viewport" content="width=device-width">
+    <meta name="generator" content={Astro.generator}>
+    <Font cssVariable="--font-pretendard" />
+    <Font cssVariable="--font-material-icons" />
+    <title>Astro</title>
+  </head>
+  <body>
+    <GlobalStyle />
+    <Header client:load />
+    <main>
+      <div id="content"><slot /></div>
+      <Footer />
+    </main>
+  </body>
 </html>
 
 <style>
-    * {
-        font-family: var(--font-pretendard);
-    }
-    main {
-        display: flex;
-        flex-direction: column;
-        min-height: 100dvh;
-    }
-    #content {
-        flex-grow: 1;
-        padding: 66px 32px 0;
-        margin: 0 auto;
-        width: 100%;
-        max-width: 1000px;
-    }
+* {
+  font-family: var(--font-pretendard);
+}
+main {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+#content {
+  flex-grow: 1;
+  padding: 66px 32px 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1000px;
+}
 </style>

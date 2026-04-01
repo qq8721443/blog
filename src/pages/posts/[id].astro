@@ -5,106 +5,106 @@ import { getReadMinutes } from "../../utils/getReadMinutes";
 import styles from "./post.module.css";
 
 export async function getStaticPaths() {
-    const posts = await getCollection("blog");
-    return posts.map((post) => ({
-        params: { id: post.id },
-        props: { post },
-    }));
+  const posts = await getCollection("blog");
+  return posts.map((post) => ({
+    params: { id: post.id },
+    props: { post },
+  }));
 }
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const readMinutes = getReadMinutes(post.body);
+const readMinutes = getReadMinutes(post.body || "");
 
 const formatDate = (date: Date) =>
-    new Intl.DateTimeFormat("en-US", {
-        month: "short",
-        day: "2-digit",
-        year: "numeric",
-    }).format(date);
+  new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "2-digit",
+    year: "numeric",
+  }).format(date);
 ---
 
 <Layout>
-    <section class={styles.page}>
-        <article class={styles.article}>
-            <div class={styles.meta}>
-                <span class={styles.tag}>{post.data.tags[0]}</span>
-                <span class={styles.metaText}>
-                    {formatDate(post.data.pubDate)} • {readMinutes} min read
-                </span>
+  <section class={styles.page}>
+    <article class={styles.article}>
+      <div class={styles.meta}>
+        <span class={styles.tag}>{post.data.tags[0]}</span>
+        <span class={styles.metaText}>
+          {formatDate(post.data.pubDate)}
+          • {readMinutes} min read
+        </span>
+      </div>
+
+      <h1 class={styles.title}>{post.data.title}</h1>
+
+      {post.data.heroImage && (
+                    <div class={styles.hero}>
+                        <img
+                            src={post.data.heroImage}
+                            alt={post.data.title}
+                            class={styles.heroImage}
+                        />
+                    </div>
+                )}
+
+      <div class={styles.content}>
+        <div class={styles.prose}><Content /></div>
+
+        <p class={styles.author}>
+          Written by <a href="#comments">{post.data.author}</a>
+        </p>
+
+        <section id="comments" class={styles.comments}>
+          <h2 class={styles.commentsTitle}>Comments</h2>
+
+          <div class={styles.commentBox}>
+            <div class={styles.commentTabs}>
+              <strong>Write</strong>
+              <span>Preview</span>
             </div>
 
-            <h1 class={styles.title}>{post.data.title}</h1>
+            <div class={styles.commentInput}>Leave a comment</div>
 
-            {post.data.heroImage && (
-                <div class={styles.hero}>
-                    <img
-                        src={post.data.heroImage}
-                        alt={post.data.title}
-                        class={styles.heroImage}
-                    />
+            <div class={styles.commentActions}>
+              <button type="button" class={styles.commentButton}>
+                Comment
+              </button>
+            </div>
+          </div>
+
+          <div class={styles.commentList}>
+            <article class={styles.comment}>
+              <div class={styles.commentAvatar}>JD</div>
+              <div class={styles.commentBody}>
+                <div class={styles.commentHeader}>
+                  <span>johndoe commented 2 days ago</span>
+                  <span>···</span>
                 </div>
-            )}
-
-            <div class={styles.content}>
-                <div class={styles.prose}>
-                    <Content />
-                </div>
-
-                <p class={styles.author}>
-                    Written by <a href="#comments">{post.data.author}</a>
+                <p class={styles.commentText}>
+                  This perspective on whitespace as a buffer zone is
+                  fascinating. We often talk about UX in terms of speed, but
+                  rarely in terms of psychological calm.
                 </p>
+              </div>
+            </article>
 
-                <section id="comments" class={styles.comments}>
-                    <h2 class={styles.commentsTitle}>Comments</h2>
-
-                    <div class={styles.commentBox}>
-                        <div class={styles.commentTabs}>
-                            <strong>Write</strong>
-                            <span>Preview</span>
-                        </div>
-
-                        <div class={styles.commentInput}>Leave a comment</div>
-
-                        <div class={styles.commentActions}>
-                            <button type="button" class={styles.commentButton}>
-                                Comment
-                            </button>
-                        </div>
-                    </div>
-
-                    <div class={styles.commentList}>
-                        <article class={styles.comment}>
-                            <div class={styles.commentAvatar}>JD</div>
-                            <div class={styles.commentBody}>
-                                <div class={styles.commentHeader}>
-                                    <span>johndoe commented 2 days ago</span>
-                                    <span>···</span>
-                                </div>
-                                <p class={styles.commentText}>
-                                    This perspective on whitespace as a buffer zone is fascinating. We
-                                    often talk about UX in terms of speed, but rarely in terms of
-                                    psychological calm.
-                                </p>
-                            </div>
-                        </article>
-
-                        <article class={styles.comment}>
-                            <div class={styles.commentAvatar}>AS</div>
-                            <div class={styles.commentBody}>
-                                <div class={styles.commentHeader}>
-                                    <span>architect_sarah commented 5 hours ago</span>
-                                    <span>···</span>
-                                </div>
-                                <p class={styles.commentText}>
-                                    Exactly what I needed to read today. The no-line rule mentioned in
-                                    the design philosophy is a game changer for UI depth.
-                                </p>
-                            </div>
-                        </article>
-                    </div>
-                </section>
-            </div>
-        </article>
-    </section>
+            <article class={styles.comment}>
+              <div class={styles.commentAvatar}>AS</div>
+              <div class={styles.commentBody}>
+                <div class={styles.commentHeader}>
+                  <span>architect_sarah commented 5 hours ago</span>
+                  <span>···</span>
+                </div>
+                <p class={styles.commentText}>
+                  Exactly what I needed to read today. The no-line rule
+                  mentioned in the design philosophy is a game changer for UI
+                  depth.
+                </p>
+              </div>
+            </article>
+          </div>
+        </section>
+      </div>
+    </article>
+  </section>
 </Layout>
