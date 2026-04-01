@@ -23,9 +23,19 @@ const formatDate = (date: Date) =>
     day: "2-digit",
     year: "numeric",
   }).format(date);
+
+const pageTitle = `${post.data.title} | jeongki.dev`;
 ---
 
-<Layout>
+<Layout
+  title={pageTitle}
+  description={post.data.description}
+  ogImage={post.data.heroImage ?? "/og-image.png"}
+  type="article"
+  publishedTime={post.data.pubDate.toISOString()}
+  author={post.data.author}
+  tags={post.data.tags}
+>
   <section class={styles.page}>
     <article class={styles.article}>
       <div class={styles.meta}>
