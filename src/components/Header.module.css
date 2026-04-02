@@ -272,35 +272,59 @@
 }
 
 @media (max-width: 900px) {
+  .content {
+    padding: 0 18px;
+  }
+
   .logo {
-    gap: 12px;
+    gap: 10px;
 
     span {
-      font-size: 20px;
-      line-height: 28px;
+      font-size: 18px;
+      line-height: 26px;
     }
   }
 
+  .actions {
+    gap: 2px;
+  }
+
+  .iconButton {
+    padding: 7px;
+    font-size: 22px;
+  }
+
   .searchOverlay {
-    padding: 78px 16px 16px;
+    padding: 74px 12px 12px;
     align-items: flex-start;
   }
 
   .searchDialog {
-    padding: 18px;
-    border-radius: 20px;
+    width: 100%;
+    max-height: min(78dvh, 720px);
+    padding: 16px;
+    border-radius: 18px;
   }
 
   .searchDialogHeader {
     align-items: center;
+    margin-bottom: 16px;
   }
 
   .searchDialogTitle {
-    font-size: 28px;
+    font-size: 24px;
+  }
+
+  .searchField {
+    min-height: 56px;
+    gap: 12px;
+    padding: 0 14px;
   }
 
   .searchResultItem {
-    padding: 16px;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px;
   }
 
   .searchResultTitle {
@@ -309,5 +333,10 @@
 
   .searchResultDescription {
     font-size: var(--font-size-ui-sm);
+  }
+
+  .searchResults {
+    gap: 10px;
+    margin-top: 16px;
   }
 }

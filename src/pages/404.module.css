@@ -93,24 +93,27 @@
 @media (max-width: 900px) {
   .page {
     min-height: auto;
-    padding: 64px 0 112px;
+    padding: 56px 0 96px;
   }
 
   .shell {
-    gap: 20px;
+    gap: 18px;
   }
 
   .title {
-    font-size: 42px;
+    font-size: 36px;
+    line-height: 1.04;
   }
 
   .description {
     font-size: var(--font-size-body-md);
+    line-height: 1.75;
   }
 
   .actions {
     flex-direction: column;
     align-items: stretch;
+    gap: 10px;
   }
 
   .primaryAction,

@@ -263,33 +263,76 @@
 
 @media (max-width: 900px) {
   .page {
-    padding-top: 48px;
-    padding-bottom: 112px;
+    padding-top: 40px;
+    padding-bottom: 96px;
+  }
+
+  .meta {
+    gap: 8px;
+    margin-bottom: 18px;
   }
 
   .title {
-    font-size: 40px;
-    line-height: 1.02;
+    margin-bottom: 24px;
+    font-size: 34px;
+    line-height: 1.06;
   }
 
   .hero {
-    height: 280px;
-    margin-bottom: 40px;
+    height: 220px;
+    margin-bottom: 32px;
   }
 
   .prose {
     font-size: var(--font-size-body-md);
+    line-height: 1.85;
   }
 
   .prose h2 {
-    font-size: 30px;
+    margin-top: 48px;
+    font-size: 28px;
+  }
+
+  .prose h3 {
+    margin-top: 36px;
+    font-size: 22px;
+  }
+
+  .prose h4 {
+    font-size: 18px;
   }
 
   .prose blockquote {
-    font-size: 24px;
+    margin: 36px 0;
+    padding-left: 14px;
+    font-size: 22px;
+  }
+
+  .prose > * + * {
+    margin-top: 24px;
+  }
+
+  .prose pre {
+    padding: 18px;
+    font-size: 14px;
+  }
+
+  .prose th,
+  .prose td {
+    padding: 12px 10px;
+  }
+
+  .prose table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
   }
 
   .comments {
-    margin-top: 64px;
+    margin-top: 56px;
+  }
+
+  .commentsTitle {
+    margin-bottom: 20px;
   }
 }
