@@ -1,27 +1,20 @@
-import { disassemble, getChoseong } from "es-hangul";
 import {
   startTransition,
   useDeferredValue,
   useEffect,
-  useId,
   useMemo,
   useState,
 } from "react";
 import styles from "../pages/index.module.css";
-
-type ArchivePost = {
-  id: string;
-  title: string;
-  description: string;
-  pubDate: string;
-  tags: string[];
-};
+import {
+  ALL_TAG,
+  getFilteredPosts,
+  type SearchablePost,
+} from "../utils/postSearch";
 
 type PostListProps = {
-  posts: ArchivePost[];
+  posts: (SearchablePost & { pubDate: string })[];
 };
-
-const ALL_TAG = "All";
 
 const formatDate = (date: string) =>
   new Intl.DateTimeFormat("en-US", {
@@ -32,38 +25,16 @@ const formatDate = (date: string) =>
     .format(new Date(date))
     .toUpperCase();
 
-const normalize = (value: string) => value.trim().toLowerCase();
-const disassembleText = (value: string) => disassemble(normalize(value));
-const choseongText = (value: string) => getChoseong(normalize(value));
-
-const matchesSearch = (value: string, query: string) => {
-  const normalizedValue = normalize(value);
-
-  if (normalizedValue.includes(query)) {
-    return true;
-  }
-
-  const disassembledQuery = disassembleText(query);
-  if (disassembledQuery && disassembleText(value).includes(disassembledQuery)) {
-    return true;
-  }
-
-  const choseongQuery = choseongText(query);
-  return Boolean(choseongQuery && choseongText(value).includes(choseongQuery));
-};
-
 export function PostList({ posts }: PostListProps) {
   const [query, setQuery] = useState("");
   const [selectedTag, setSelectedTag] = useState(ALL_TAG);
   const [isSearchParamsReady, setIsSearchParamsReady] = useState(false);
   const deferredQuery = useDeferredValue(query);
-  const searchId = useId();
 
   const tags = useMemo(
     () => [ALL_TAG, ...new Set(posts.flatMap((post) => post.tags))],
     [posts],
   );
-  const normalizedQuery = normalize(deferredQuery);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -105,24 +76,7 @@ export function PostList({ posts }: PostListProps) {
     );
   }, [isSearchParamsReady, query, selectedTag]);
 
-  const filteredPosts = posts.filter((post) => {
-    const matchesTag =
-      selectedTag === ALL_TAG || post.tags.includes(selectedTag);
-
-    if (!matchesTag) {
-      return false;
-    }
-
-    if (!normalizedQuery) {
-      return true;
-    }
-
-    const searchableText = normalize(
-      [post.title, post.description, ...post.tags].join(" "),
-    );
-
-    return matchesSearch(searchableText, normalizedQuery);
-  });
+  const filteredPosts = getFilteredPosts(posts, deferredQuery, selectedTag);
 
   const hasPosts = posts.length > 0;
   const hasResults = filteredPosts.length > 0;
@@ -140,12 +94,12 @@ export function PostList({ posts }: PostListProps) {
       <h1 className={styles.pageTitle}>jeongki.dev 기술 블로그</h1>
 
       <div className={styles.searchSection}>
-        <label className={styles.searchBar} htmlFor={searchId}>
+        <label className={styles.searchBar} htmlFor="post-search">
           <span className={styles.searchIcon} aria-hidden="true">
             search
           </span>
           <input
-            id={searchId}
+            id="post-search"
             type="search"
             value={query}
             onChange={(event) => {

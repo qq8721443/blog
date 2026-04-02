@@ -240,6 +240,13 @@
 
 .author a {
   color: var(--color-accent-primary);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.author a:focus-visible {
+  outline: 2px solid var(--color-accent-primary);
+  outline-offset: 3px;
 }
 
 .comments {
@@ -261,7 +268,8 @@
   }
 
   .title {
-    font-size: 46px;
+    font-size: 40px;
+    line-height: 1.02;
   }
 
   .hero {
@@ -279,5 +287,9 @@
 
   .prose blockquote {
     font-size: 24px;
+  }
+
+  .comments {
+    margin-top: 64px;
   }
 }

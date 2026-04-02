@@ -68,6 +68,17 @@ test.describe("home", () => {
     await expect(root).toHaveAttribute("data-theme", expectedTheme);
   });
 
+  test("moves focus to the home search field from the header search button", async ({
+    page,
+  }) => {
+    await page.goto("/");
+
+    await page.getByRole("button", { name: "검색으로 이동" }).click();
+    await expect(
+      page.getByRole("searchbox", { name: "글 검색" }),
+    ).toBeFocused();
+  });
+
   test("navigates to the detail page from the list", async ({ page }) => {
     await page.goto("/");
 

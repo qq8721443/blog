@@ -24,5 +24,32 @@
 
   a {
     color: inherit;
+    text-underline-offset: 0.2em;
+    transition:
+      color 0.2s ease-out,
+      text-decoration-color 0.2s ease-out;
+  }
+
+  a:hover {
+    color: var(--color-text-body);
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--color-accent-primary);
+    outline-offset: 3px;
+  }
+}
+
+@media (max-width: 900px) {
+  .content {
+    flex-direction: column;
+    gap: 28px;
+    align-items: flex-start;
+    padding: 56px var(--space-page-x);
+  }
+
+  .list {
+    gap: 24px;
+    flex-wrap: wrap;
   }
 }

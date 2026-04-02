@@ -49,14 +49,17 @@ const pageTitle = `${post.data.title} | jeongki.dev`;
       <h1 class={styles.title}>{post.data.title}</h1>
 
       {post.data.heroImage && (
-                    <div class={styles.hero}>
-                        <img
-                            src={post.data.heroImage}
-                            alt={post.data.title}
-                            class={styles.heroImage}
-                        />
-                    </div>
-                )}
+        <div class={styles.hero}>
+          <img
+            src={post.data.heroImage}
+            alt={post.data.title}
+            class={styles.heroImage}
+            width="1200"
+            height="840"
+            decoding="async"
+          />
+        </div>
+      )}
 
       <div class={styles.content}>
         <div class={styles.prose}><Content /></div>

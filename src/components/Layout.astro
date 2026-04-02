@@ -1,5 +1,6 @@
 ---
 import { Font } from "astro:assets";
+import { getCollection } from "astro:content";
 import { Footer } from "./Footer";
 import GlobalStyle from "./GlobalStyle.astro";
 import { Header } from "./Header";
@@ -31,6 +32,12 @@ const {
 const site = Astro.site ?? new URL("https://jeongki.dev");
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, site).toString();
 const ogImageUrl = new URL(ogImage, site).toString();
+const posts = (await getCollection("blog")).map((post) => ({
+  id: post.id,
+  title: post.data.title,
+  description: post.data.description,
+  tags: post.data.tags,
+}));
 ---
 
 <html lang="ko">
@@ -91,7 +98,7 @@ const ogImageUrl = new URL(ogImage, site).toString();
   <body>
     <GlobalStyle />
     <a class="skipLink" href="#content">본문으로 건너뛰기</a>
-    <Header client:load />
+    <Header client:load posts={posts} />
     <main>
       <div id="content"><slot /></div>
       <Footer />
