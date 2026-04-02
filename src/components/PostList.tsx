@@ -86,6 +86,8 @@ export function PostList({ posts }: PostListProps) {
 
   return (
     <section className={styles.page}>
+      <h1 className={styles.pageTitle}>jeongki.dev 기술 블로그</h1>
+
       <div className={styles.searchSection}>
         <label className={styles.searchBar} htmlFor={searchId}>
           <span className={styles.searchIcon} aria-hidden="true">

@@ -8,7 +8,7 @@ export function Header() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <div
+    <header
       className={styles.container}
       style={isTop ? undefined : { boxShadow: "var(--shadow-header-sticky)" }}
     >
@@ -37,6 +37,6 @@ export function Header() {
           </button>
         </div>
       </div>
-    </div>
+    </header>
   );
 }

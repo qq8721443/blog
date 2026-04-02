@@ -7,3 +7,4 @@
 ## Validation Rules
 
 - Run `pnpm check:fix` and `pnpm build` after every code change.
+- Run `pnpm test:e2e` when UI changes are introduced.
