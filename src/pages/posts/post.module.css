@@ -67,10 +67,27 @@
   color: var(--color-text-body);
   font-size: var(--font-size-body-md);
   line-height: 1.95;
+  word-break: keep-all;
 }
 
 .prose > * + * {
   margin-top: 28px;
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  scroll-margin-top: 104px;
+}
+
+.prose h1 {
+  margin-top: 56px;
+  color: var(--color-text-strong);
+  font-size: clamp(32px, 4vw, 42px);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.04em;
+  line-height: 1.08;
 }
 
 .prose h2 {
@@ -82,9 +99,65 @@
   line-height: 1.1;
 }
 
+.prose h3 {
+  margin-top: 44px;
+  color: var(--color-text-strong);
+  font-size: 26px;
+  font-weight: var(--font-weight-bold);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.prose h4 {
+  margin-top: 36px;
+  color: var(--color-text-strong);
+  font-size: 20px;
+  font-weight: var(--font-weight-bold);
+  line-height: 1.35;
+}
+
 .prose p,
 .prose li {
   color: var(--color-text-body);
+}
+
+.prose strong {
+  color: var(--color-text-strong);
+  font-weight: var(--font-weight-bold);
+}
+
+.prose em {
+  color: var(--color-text-secondary);
+}
+
+.prose a {
+  color: var(--color-accent-primary);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.5em;
+}
+
+.prose ul {
+  list-style: disc;
+}
+
+.prose ol {
+  list-style: decimal;
+}
+
+.prose li + li {
+  margin-top: 10px;
+}
+
+.prose hr {
+  margin: 56px 0;
+  border: none;
+  border-top: 1px solid var(--color-border-default);
 }
 
 .prose blockquote {
@@ -116,6 +189,44 @@
   padding: 0;
   background: transparent;
   color: inherit;
+}
+
+.prose figure {
+  margin: 40px 0;
+}
+
+.prose img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-xs);
+}
+
+.prose figcaption {
+  margin-top: 12px;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-ui-sm);
+  line-height: 1.6;
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--font-size-ui-sm);
+  line-height: 1.6;
+}
+
+.prose th,
+.prose td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border-default);
+  text-align: left;
+  vertical-align: top;
+}
+
+.prose th {
+  color: var(--color-text-strong);
+  font-weight: var(--font-weight-bold);
 }
 
 .author {

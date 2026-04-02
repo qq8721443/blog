@@ -9,6 +9,7 @@ interface Props {
   description?: string;
   ogImage?: string;
   canonical?: string;
+  robots?: string;
   type?: "website" | "article";
   publishedTime?: string;
   author?: string;
@@ -20,6 +21,7 @@ const {
   description = "기술 블로그",
   ogImage = "/og-image.png",
   canonical,
+  robots = "index, follow",
   type = "website",
   publishedTime,
   author,
@@ -37,7 +39,7 @@ const ogImageUrl = new URL(ogImage, site).toString();
     <meta name="viewport" content="width=device-width">
     <meta name="generator" content={Astro.generator}>
     <meta name="description" content={description}>
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content={robots}>
     <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
     <meta name="theme-color" content="#0f1318" media="(prefers-color-scheme: dark)">
     <link rel="canonical" href={canonicalUrl}>
