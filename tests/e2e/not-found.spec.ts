@@ -9,5 +9,7 @@ test("renders the 404 page for unknown routes", async ({ page }) => {
     }),
   ).toBeVisible();
   await expect(page.getByRole("link", { name: "Go home" })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Read Latest Post" })).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Read Latest Post" }),
+  ).toBeVisible();
 });

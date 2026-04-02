@@ -1,5 +1,12 @@
 import { disassemble, getChoseong } from "es-hangul";
-import { startTransition, useDeferredValue, useId, useState } from "react";
+import {
+  startTransition,
+  useDeferredValue,
+  useEffect,
+  useId,
+  useMemo,
+  useState,
+} from "react";
 import styles from "../pages/index.module.css";
 
 type ArchivePost = {
@@ -48,11 +55,55 @@ const matchesSearch = (value: string, query: string) => {
 export function PostList({ posts }: PostListProps) {
   const [query, setQuery] = useState("");
   const [selectedTag, setSelectedTag] = useState(ALL_TAG);
+  const [isSearchParamsReady, setIsSearchParamsReady] = useState(false);
   const deferredQuery = useDeferredValue(query);
   const searchId = useId();
 
-  const tags = [ALL_TAG, ...new Set(posts.flatMap((post) => post.tags))];
+  const tags = useMemo(
+    () => [ALL_TAG, ...new Set(posts.flatMap((post) => post.tags))],
+    [posts],
+  );
   const normalizedQuery = normalize(deferredQuery);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const nextQuery = params.get("q") ?? "";
+    const nextTag = params.get("tag");
+
+    setQuery(nextQuery);
+
+    if (nextTag && tags.includes(nextTag)) {
+      setSelectedTag(nextTag);
+    }
+
+    setIsSearchParamsReady(true);
+  }, [tags]);
+
+  useEffect(() => {
+    if (!isSearchParamsReady) {
+      return;
+    }
+
+    const url = new URL(window.location.href);
+
+    if (query) {
+      url.searchParams.set("q", query);
+    } else {
+      url.searchParams.delete("q");
+    }
+
+    if (selectedTag !== ALL_TAG) {
+      url.searchParams.set("tag", selectedTag);
+    } else {
+      url.searchParams.delete("tag");
+    }
+
+    window.history.replaceState(
+      {},
+      "",
+      `${url.pathname}${url.search}${url.hash}`,
+    );
+  }, [isSearchParamsReady, query, selectedTag]);
 
   const filteredPosts = posts.filter((post) => {
     const matchesTag =
@@ -101,7 +152,7 @@ export function PostList({ posts }: PostListProps) {
               setQuery(event.target.value);
             }}
             className={styles.searchInput}
-            placeholder="Search the archives..."
+            placeholder="Search the archives…"
             aria-label="글 검색"
           />
         </label>
@@ -176,14 +227,6 @@ export function PostList({ posts }: PostListProps) {
               Clear filters
             </button>
           )}
-        </div>
-      )}
-
-      {hasPosts && (
-        <div className={styles.archiveAction}>
-          <button type="button" className={styles.archiveButton}>
-            View full archive
-          </button>
         </div>
       )}
     </section>
