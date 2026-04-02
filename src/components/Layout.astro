@@ -90,6 +90,7 @@ const ogImageUrl = new URL(ogImage, site).toString();
   </head>
   <body>
     <GlobalStyle />
+    <a class="skipLink" href="#content">본문으로 건너뛰기</a>
     <Header client:load />
     <main>
       <div id="content"><slot /></div>
@@ -113,5 +114,31 @@ main {
   margin: 0 auto;
   width: 100%;
   max-width: var(--layout-page-max-width);
+}
+.skipLink {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 1000;
+  padding: 12px 18px;
+  border-radius: var(--radius-pill);
+  background: var(--color-accent-primary);
+  color: var(--color-accent-on-primary);
+  font-size: var(--font-size-ui-sm);
+  font-weight: var(--font-weight-bold);
+  line-height: 1;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -120%);
+  transition:
+    transform 0.2s ease-out,
+    opacity 0.2s ease-out;
+}
+.skipLink:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 16px);
+  outline: 2px solid var(--color-bg-default);
+  outline-offset: 3px;
 }
 </style>
