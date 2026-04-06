@@ -1,0 +1,13 @@
+services:
+  blog:
+    image: ${APP_IMAGE}
+    container_name: jeongki-dev-blog
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    # 원본 서버 HTTPS를 직접 붙일 때는 아래처럼 확장합니다.
+    # ports:
+    #   - "80:80"
+    #   - "443:443"
+    # volumes:
+    #   - ./certs:/etc/nginx/certs:ro

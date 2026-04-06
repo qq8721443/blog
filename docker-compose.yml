@@ -1,0 +1,16 @@
+services:
+  blog:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jeongki-dev-blog
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    # HTTPS를 원본 서버에서 직접 처리할 때는 아래처럼 cert volume과 443 설정을 추가합니다.
+    # ports:
+    #   - "80:80"
+    #   - "443:443"
+    # volumes:
+    #   - ./ops/certs:/etc/nginx/certs:ro
+
