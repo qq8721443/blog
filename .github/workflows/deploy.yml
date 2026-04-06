@@ -34,14 +34,6 @@ jobs:
       - name: Validate code style
         run: pnpm check
 
-      - name: Build project
-        run: pnpm build
-        env:
-          PUBLIC_GISCUS_REPO: ${{ vars.PUBLIC_GISCUS_REPO }}
-          PUBLIC_GISCUS_REPO_ID: ${{ vars.PUBLIC_GISCUS_REPO_ID }}
-          PUBLIC_GISCUS_CATEGORY: ${{ vars.PUBLIC_GISCUS_CATEGORY }}
-          PUBLIC_GISCUS_CATEGORY_ID: ${{ vars.PUBLIC_GISCUS_CATEGORY_ID }}
-
       - name: Install Playwright browsers
         run: pnpm exec playwright install --with-deps
 
@@ -63,6 +55,11 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
+          build-args: |
+            PUBLIC_GISCUS_REPO=${{ vars.PUBLIC_GISCUS_REPO }}
+            PUBLIC_GISCUS_REPO_ID=${{ vars.PUBLIC_GISCUS_REPO_ID }}
+            PUBLIC_GISCUS_CATEGORY=${{ vars.PUBLIC_GISCUS_CATEGORY }}
+            PUBLIC_GISCUS_CATEGORY_ID=${{ vars.PUBLIC_GISCUS_CATEGORY_ID }}
           tags: |
             ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
             ${{ env.IMAGE_NAME }}:latest
