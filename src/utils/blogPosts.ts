@@ -1,7 +1,7 @@
 import { type CollectionEntry, getCollection } from "astro:content";
 import type { SearchablePost } from "./postSearch";
 
-type BlogPost = CollectionEntry<"blog">;
+export type BlogPost = CollectionEntry<"blog">;
 
 export type PostListItem = SearchablePost & {
   pubDate: string;

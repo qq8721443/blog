@@ -3,8 +3,7 @@ import { getCollection, render } from "astro:content";
 import GiscusComments from "../../components/GiscusComments.astro";
 import Layout from "../../components/Layout.astro";
 import { getBlogPosts, toSearchablePosts } from "../../utils/blogPosts";
-import { formatDate } from "../../utils/formatDate";
-import { getReadMinutes } from "../../utils/getReadMinutes";
+import { toPostDetailViewModel } from "../../utils/postDetail";
 import styles from "./post.module.css";
 
 export async function getStaticPaths() {
@@ -17,38 +16,37 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const readMinutes = getReadMinutes(post.body || "");
 const headerPosts = toSearchablePosts(await getBlogPosts());
-const pageTitle = `${post.data.title} | jeongki.dev`;
+const detail = toPostDetailViewModel(post);
 ---
 
 <Layout
-  title={pageTitle}
-  description={post.data.description}
-  ogImage={post.data.heroImage ?? "/og-image.png"}
+  title={detail.pageTitle}
+  description={detail.description}
+  ogImage={detail.ogImage}
   type="article"
-  publishedTime={post.data.pubDate.toISOString()}
-  author={post.data.author}
-  tags={post.data.tags}
+  publishedTime={detail.publishedTime}
+  author={detail.author}
+  tags={detail.tags}
   headerPosts={headerPosts}
 >
   <section class={styles.page}>
     <article class={styles.article}>
       <div class={styles.meta}>
-        <span class={styles.tag}>{post.data.tags[0]}</span>
+        {detail.primaryTag && <span class={styles.tag}>{detail.primaryTag}</span>}
         <span class={styles.metaText}>
-          {formatDate(post.data.pubDate)}
-          • {readMinutes} min read
+          {detail.formattedDate}
+          • {detail.readMinutes} min read
         </span>
       </div>
 
-      <h1 class={styles.title}>{post.data.title}</h1>
+      <h1 class={styles.title}>{detail.title}</h1>
 
-      {post.data.heroImage && (
+      {detail.heroImage && (
         <div class={styles.hero}>
           <img
-            src={post.data.heroImage}
-            alt={post.data.title}
+            src={detail.heroImage}
+            alt={detail.heroAlt}
             class={styles.heroImage}
             width="1200"
             height="840"
@@ -61,7 +59,7 @@ const pageTitle = `${post.data.title} | jeongki.dev`;
         <div class={styles.prose}><Content /></div>
 
         <p class={styles.author}>
-          Written by <a href="#comments">{post.data.author}</a>
+          Written by <a href="#comments">{detail.author}</a>
         </p>
 
         <section id="comments" class={styles.comments}>
