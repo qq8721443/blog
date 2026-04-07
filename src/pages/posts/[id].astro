@@ -2,6 +2,8 @@
 import { getCollection, render } from "astro:content";
 import GiscusComments from "../../components/GiscusComments.astro";
 import Layout from "../../components/Layout.astro";
+import { getBlogPosts, toSearchablePosts } from "../../utils/blogPosts";
+import { formatDate } from "../../utils/formatDate";
 import { getReadMinutes } from "../../utils/getReadMinutes";
 import styles from "./post.module.css";
 
@@ -16,14 +18,7 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 const readMinutes = getReadMinutes(post.body || "");
-
-const formatDate = (date: Date) =>
-  new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "2-digit",
-    year: "numeric",
-  }).format(date);
-
+const headerPosts = toSearchablePosts(await getBlogPosts());
 const pageTitle = `${post.data.title} | jeongki.dev`;
 ---
 
@@ -35,6 +30,7 @@ const pageTitle = `${post.data.title} | jeongki.dev`;
   publishedTime={post.data.pubDate.toISOString()}
   author={post.data.author}
   tags={post.data.tags}
+  headerPosts={headerPosts}
 >
   <section class={styles.page}>
     <article class={styles.article}>

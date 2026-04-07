@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import logo from "../assets/images/blog-logo.svg";
 import { useTheme } from "../hooks/useTheme";
 import { useTop } from "../hooks/useTop";
@@ -8,19 +8,13 @@ import { SearchOverlay } from "./SearchOverlay";
 
 type HeaderProps = {
   posts: SearchablePost[];
+  isHomePage: boolean;
 };
 
-export function Header({ posts }: HeaderProps) {
+export function Header({ posts, isHomePage }: HeaderProps) {
   const isTop = useTop();
   const { theme, toggleTheme } = useTheme();
-  const [pathname, setPathname] = useState("/");
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-
-  useEffect(() => {
-    setPathname(window.location.pathname);
-  }, []);
-
-  const isHomePage = useMemo(() => pathname === "/", [pathname]);
 
   const handleSearchTrigger = () => {
     if (isHomePage) {
@@ -33,7 +27,7 @@ export function Header({ posts }: HeaderProps) {
       input.focus();
       input.scrollIntoView({ block: "start", behavior: "smooth" });
       window.setTimeout(() => {
-        window.scrollBy({ top: -96, behavior: "instant" });
+        window.scrollBy({ top: -96, behavior: "auto" });
       }, 0);
       return;
     }

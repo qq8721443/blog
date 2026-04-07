@@ -1,11 +1,10 @@
 ---
-import { getCollection } from "astro:content";
 import Layout from "../components/Layout.astro";
+import { getBlogPosts, toSearchablePosts } from "../utils/blogPosts";
 import styles from "./404.module.css";
 
-const posts = (await getCollection("blog")).sort(
-  (a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime(),
-);
+const posts = await getBlogPosts();
+const headerPosts = toSearchablePosts(posts);
 
 const latestPost = posts[0];
 ---
@@ -14,6 +13,7 @@ const latestPost = posts[0];
   title="404 | jeongki.dev"
   description="요청한 페이지를 찾을 수 없습니다."
   robots="noindex, nofollow"
+  headerPosts={headerPosts}
 >
   <section class={styles.page}>
     <div class={styles.shell}>

@@ -1,6 +1,6 @@
 ---
 import { Font } from "astro:assets";
-import { getCollection } from "astro:content";
+import type { SearchablePost } from "../utils/postSearch";
 import { Footer } from "./Footer";
 import GlobalStyle from "./GlobalStyle.astro";
 import { Header } from "./Header";
@@ -15,6 +15,8 @@ interface Props {
   publishedTime?: string;
   author?: string;
   tags?: string[];
+  headerPosts?: SearchablePost[];
+  isHomePage?: boolean;
 }
 
 const {
@@ -27,17 +29,13 @@ const {
   publishedTime,
   author,
   tags = [],
+  headerPosts = [],
+  isHomePage = false,
 } = Astro.props;
 
 const site = Astro.site ?? new URL("https://jeongki.dev");
 const canonicalUrl = canonical ?? new URL(Astro.url.pathname, site).toString();
 const ogImageUrl = new URL(ogImage, site).toString();
-const posts = (await getCollection("blog")).map((post) => ({
-  id: post.id,
-  title: post.data.title,
-  description: post.data.description,
-  tags: post.data.tags,
-}));
 ---
 
 <html lang="ko">
@@ -98,7 +96,7 @@ const posts = (await getCollection("blog")).map((post) => ({
   <body>
     <GlobalStyle />
     <a class="skipLink" href="#content">본문으로 건너뛰기</a>
-    <Header client:load posts={posts} />
+    <Header client:load posts={headerPosts} isHomePage={isHomePage} />
     <main>
       <div id="content"><slot /></div>
       <Footer />
