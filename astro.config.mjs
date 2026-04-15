@@ -28,6 +28,7 @@ export default defineConfig({
       provider: fontProviders.googleicons(),
       name: "Material Icons",
       cssVariable: "--font-material-icons",
+      display: "auto",
     },
   ],
 });
